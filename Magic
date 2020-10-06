@@ -1,0 +1,165 @@
+Before You Use Any Of The Following Source Please Read Windows Internals And Practical Malware Optional Ofc But It Will Be A Big Help If You Dont Understand Them And Wanna Do 
+More With Them I Will Put Some Source Here That I Found Online That Are Usefull And Will Help. 
+
+Discord : Sicario#1337 : DO NOT DM FOR STUPID SHII 
+CODE : C++
+
+Some Of The Following Code IS From https://www.codeproject.com/Articles/30815/An-Anti-Reverse-Engineering-Guide Read It Will Help You Understand I Will Post The Source On Another
+Repo
+
+FACT: IAM NOT A PRO IAM STILL LEARNING JUST TRYING TO HELP PEOPLE TO GIVING THEM INFO 
+
+Most Of You That Are Here Obviously Know What IDA,DBG,BINARY NINJA. Are Most Likely You Are Here To Defend Your Self Against Them The Function Below Is Use In Order To Tell The 
+Program We Have Found A BreakPoint They Can Be Use And Many Ways Usually To Skip A Login To Get Into The Program This Will Help You Defeat That You Could Call The Function 
+CheckForCCBreakpoint(void* pMemory,  size_t SizeToCheck) But What Good Is That Gonna Do If You Just Keep Calling It They Can Always Use Like A Modified Process Hacker To Pause The Process 
+And Make A Break Point One Really Good Option Is Making A Thread So Its Just A Loop Checking For BreakPoints. <-- Was Lazy Too Finish lol
+
+
+bool CheckForCCBreakpoint(void* pMemory,  size_t SizeToCheck)
+{
+     unsigned char *pTmp = (unsigned char*)pMemory; 
+    for (size_t i = 0; i < SizeToCheck; i++)
+     {
+         if(pTmp[i] == 0xCC)
+             return true;
+     } 
+
+    return false;
+}
+
+
+
+//This Is Use To Check If A Debugger Is Pressent It Will Use NtQueryProcessInformation
+inline bool CheckProcessDebugFlags()
+{
+    typedef NTSTATUS(WINAPI* pNtQueryInformationProcess)
+        (HANDLE, UINT, PVOID, ULONG, PULONG);
+
+    DWORD NoDebugInherit = 0;
+    NTSTATUS Status;
+
+    pNtQueryInformationProcess NtQIP = (pNtQueryInformationProcess)
+        GetProcAddress(GetModuleHandle(TEXT("ntdll.dll")),
+            "NtQueryInformationProcess");
+
+    Status = NtQIP(GetCurrentProcess(),
+        0x1f, // ProcessDebugFlags
+        &NoDebugInherit, 4, NULL);
+
+    if (Status != 0x00000000)
+        return false;
+
+    if (NoDebugInherit == FALSE)
+        return true;
+    else
+        return false;
+}
+
+
+//This Is From The Book Game Hacking: Developing Autonomous Bots for Online Games To Use Just Call Any Function Inside And It Cuase The Application To Crash
+typedef void (*_recurse)();
+void recurse1(); void recurse2();
+void recurse3(); void recurse4();
+void recurse5();
+_recurse recfuncs[5] = {
+ &recurse1, &recurse2, &recurse3,
+ &recurse4, &recurse5
+};
+void recurse1() { recfuncs[rand() % 5](); }
+void recurse2() { recfuncs[(rand() % 3) + 2](); }
+void recurse3() {
+    if (rand() % 100 < 50) recurse1();
+    else recfuncs[(rand() % 3) + 1]();
+}
+void recurse4() { recfuncs[rand() % 2](); }
+void recurse5() {
+    for (int i = 0; i < 100; i++)
+        if (rand() % 50 == 1)
+            recfuncs[i % 5]();
+    recurse5();
+}
+
+
+
+//This Can Be Use If You Find A Debugger You Can Be Evil And Call This Function Then Cause Them To BSOD
+void BSDOD()
+{
+    BOOLEAN bl;
+    unsigned long responce;
+    RtlAdjustPrivilege(19, true, false, &bl);
+    NtRaiseHardError(STATUS_ASSERTION_FAILURE, 0, 0, 0, 6, &responce);
+    return;
+}
+
+
+//This I Have Use Even On Some Applications Zero Memory Makes A very Good Tutorial On It He Makes Very Good Videos Go Check Him Out 
+Video : https://www.youtube.com/watch?v=1ptiP-HKE8I
+void MonitorOnOrOff()
+{
+    //Turns Monitot OFF
+    SendMessage(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, (LPARAM)2);
+    // Sleep(10000);
+     //Turns Monitor Back On
+   SendMessage(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, (LPARAM)-1);
+
+}
+
+
+//This Is Use For Anti Dumping Since There Will Be No Header Sometimes This Makes Some Applications Crash
+inline void ErasePEHeaderFromMemory()
+{
+    DWORD OldProtect = 0;
+
+    // Get base address of module
+    char* pBaseAddr = (char*)GetModuleHandle(NULL);
+
+    // Change memory protection
+    VirtualProtect(pBaseAddr, 4096, // Assume x86 page size
+        PAGE_READWRITE, &OldProtect);
+
+    // Erase the header
+    ZeroMemory(pBaseAddr, 4096);
+}
+
+//Another Way To Cause An Application Crash
+void SelfDestruct() {
+    std::vector<char*> explosion;
+    while (true)
+        explosion.push_back(new char[10000]);
+}
+
+
+//Use To Check If You Are On A Virtual Machine There Is Many Techniques
+#define REG_QUERY "REG QUERY HKLM\\SYSTEM\\CurrentControlSet\\Control\\VirtualDeviceDrivers"
+void VirtualBox() {
+    int i = system(REG_QUERY);
+    if (i == 0) {
+        std::cout << "Debugger Found!!" << std::endl;
+        Sleep(1500);
+        exit(0);
+    }
+    else {
+        return;
+    }
+}
+
+
+//this is Use for random string not super usefull but cool optional
+std::string random_string(std::size_t length)
+{
+
+    const std::string CHARACTERS =  ("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
+
+    std::random_device random_device;
+    std::mt19937 generator(random_device());
+    std::uniform_int_distribution<> distribution(0, CHARACTERS.size() - 1);
+
+    std::string random_string;
+
+    for (std::size_t i = 0; i < length; ++i)
+    {
+        random_string += CHARACTERS[distribution(generator)];
+    }
+
+    return random_string;
+}
