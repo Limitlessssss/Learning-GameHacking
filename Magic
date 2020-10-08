@@ -166,3 +166,39 @@ std::string random_string(std::size_t length)
 
 
 //Coming Up CheckRemoteDebuggerPresent This Doesnt Actually Check For A Debugger On Another PC Or Whatevah This Checks If A Debugger Is On A Certain Process
+void CheckRemoteDebuggerPresent1() {
+
+    BOOL isDebuggerPresent = FALSE;
+
+    if (CheckRemoteDebuggerPresent(GetCurrentProcess(), &isDebuggerPresent))
+    {
+        if (isDebuggerPresent)
+        {
+            std::cout << "Debugger Found" << std::endl;
+            exit(0);
+        }
+        else {
+        printf("Your Not Gay");
+        }
+    }
+    return;
+
+}
+
+//Debigging Tools Regirty Usually In Restry The Value For AeDebug is Dr. Watson But If U Use A Debugger I Will Change To Like OllyDbg
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AeDebug
+
+//Check For Debugger Windows Using FindWindow This Just Searches For A Debugger Window Simple Easy To Bypass Also
+void BetterDebuggerCheck() {
+    if (FindWindow(L"OLLYDBG", 0) == NULL)
+    {
+        //Debugger Not Found
+    }
+    else
+    {
+        printf("You Fucked Up!"));
+        Sleep(1500);
+        exit(0);
+    }
+    return 0;
+}
