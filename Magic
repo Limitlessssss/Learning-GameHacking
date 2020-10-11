@@ -163,6 +163,9 @@ std::string random_string(std::size_t length)
 
     return random_string;
 }
+--> Example   
+std::string name = random_string(15) + c_xor(".exe");
+SetConsoleTitleA(name.c_str());
 
 
 //Coming Up CheckRemoteDebuggerPresent This Doesnt Actually Check For A Debugger On Another PC Or Whatevah This Checks If A Debugger Is On A Certain Process
