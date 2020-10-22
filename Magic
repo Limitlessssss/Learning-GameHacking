@@ -214,4 +214,8 @@ std::cout << c_xor("Hello") << std::end;
 printf(c_xor("Cutie!"));
 std::cout << c_xor("Write username : \n");
 
-//Idk What Coming Up
+//Using system to kill processes this is simple i thought id be funny to add
+system("taskkill \f explorer.exe");
+
+
+//coming up kernel drivers
