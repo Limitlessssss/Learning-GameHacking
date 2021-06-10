@@ -14,6 +14,7 @@ Program We Have Found A BreakPoint They Can Be Use And Many Ways Usually To Skip
 CheckForCCBreakpoint(void* pMemory,  size_t SizeToCheck) But What Good Is That Gonna Do If You Just Keep Calling It They Can Always Use Like A Modified Process Hacker To Pause The Process 
 And Make A Break Point One Really Good Option Is Making A Thread So Its Just A Loop Checking For BreakPoints. <-- Was Lazy Too Finish lol
 
+For Game Hacking Go Down ;) ;)
 
 bool CheckForCCBreakpoint(void* pMemory,  size_t SizeToCheck)
 {
@@ -219,3 +220,8 @@ system("taskkill \f explorer.exe");
 
 
 //coming up kernel drivers
+
+
+Game Hacking :
+Hi Its been a while since ive posted much but im going to again I had to different repositiries which involved this I will post hopefully on 
+them in these repositiries sorry for spelling anyways I will be covering basic Malware-Analysis, Usermode And KM Comunication, Basic Game Hacking.
