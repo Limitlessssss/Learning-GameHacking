@@ -1,7 +1,7 @@
 Before You Use Any Of The Following Source Please Read Windows Internals And Practical Malware Optional Ofc But It Will Be A Big Help If You Dont Understand Them And Wanna Do 
 More With Them I Will Put Some Source Here That I Found Online That Are Usefull And Will Help. 
 
-Discord : Sicario#1337 : DO NOT DM FOR STUPID SHII 
+Discord : magiccc : DO NOT DM FOR STUPID SHII 
 CODE : C++
 
 Some Of The Following Code IS From https://www.codeproject.com/Articles/30815/An-Anti-Reverse-Engineering-Guide Read It Will Help You Understand I Will Post The Source On Another
@@ -220,6 +220,23 @@ system("taskkill \f explorer.exe");
 
 
 //coming up kernel drivers
+ok so i havent worked on kernel for a while so ima hold this back well recently ive been just looking into vectors for faster entity 
+loop for higher fps so ima show 2 different examples also if i make a mistake sorry iam not home.
+
+std::vector<uintpr_t> imvector;
+
+void loopi() {
+
+}
+
+void refreshesp() {
+
+}
+
+int main() {
+
+std::cout << "im big 109" << std::endl;
+}
 
 
 Game Hacking :
