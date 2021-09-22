@@ -223,13 +223,21 @@ system("taskkill \f explorer.exe");
 ok so i havent worked on kernel for a while so ima hold this back well recently ive been just looking into vectors for faster entity 
 loop for higher fps so ima show 2 different examples also if i make a mistake sorry iam not home.
 
-std::vector<uintpr_t> imvector;
+std::vector<uintpr_t> imvector; //this creates the vectors which were gonna use to push back and clear and read size 
 
-void loopi() {
+
+//offsets
+#define oEnts 0x785433
+#define oLocalPlayer 0x760
+#define oEnemyPlayer 0x780
+
+
+void loopi() { //this will read our values with the vector
+
 
 }
 
-void refreshesp() {
+void refreshesp() { //We are going to draw our esp inside of this and read basic enemy values the current enitybase
 
 }
 
