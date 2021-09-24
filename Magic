@@ -235,11 +235,31 @@ std::vector<uintpr_t> imvector; //this creates the vectors which were gonna use 
 void loopi() { //this will read our values with the vector
 
 
+
+for (int i = 0; i < imvector.size(); i++) { 
+     
+
+}
+
 }
 
 void refreshesp() { //We are going to draw our esp inside of this and read basic enemy values the current enitybase
 
 }
+
+
+
+//for calling these functions we can do something like 
+int i = 0;
+while (i <= 100) {
+   loopi();
+}
+
+i++; //once it reaches 100 it will loop again
+
+//then here our esp
+refreshesp();
+
 
 int main() {
 
